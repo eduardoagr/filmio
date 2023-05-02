@@ -1,0 +1,50 @@
+﻿<Window
+    x:Class="filmio.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="clr-namespace:filmio.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:vm="clr-namespace:filmio.ViewModel"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=vm:LoginViewModel}"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel
+            Margin="100,0,100,0"
+            VerticalAlignment="Center">
+            <TextBox
+                Margin="0,10,0,0"
+                ui:ControlHelper.PlaceholderText="Email"
+                Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" />
+
+            <components:BindablePasswordBox
+                Margin="0,10,0,0"
+                Password="{Binding User.Password, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Button
+                Margin="0,10,0,0"
+                HorizontalAlignment="Stretch"
+                Command="{Binding LoginCommand}"
+                Content="Login"
+                FocusVisualStyle="{x:Null}" />
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                Foreground="#128CF7"
+                Text="Do not have an account?">
+                <TextBlock.InputBindings>
+                    <MouseBinding
+                        Command="{Binding CreateAccountCommand}"
+                        MouseAction="LeftClick" />
+                </TextBlock.InputBindings>
+            </TextBlock>
+
+        </StackPanel>
+    </Grid>
+</Window>
