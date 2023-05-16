@@ -1,7 +1,5 @@
-﻿using filmio.Dialogs;
-using filmio.Services;
+﻿
 
-using User = filmio.Model.User;
 
 namespace filmio.ViewModel {
 
@@ -11,6 +9,10 @@ namespace filmio.ViewModel {
 
         public User User { get; set; }
 
+        public Visibility isFormVis { get; set; }
+
+        public Visibility isWorkiing { get; set; }
+
         public AsyncCommand LoginCommand { get; set; }
 
         public Command CreateAccountCommand { get; set; }
@@ -18,7 +20,8 @@ namespace filmio.ViewModel {
         public LoginViewModel(FirebaseAuthConfig config) {
             _config = config;
             User = new User();
-
+            isFormVis = Visibility.Visible;
+            isWorkiing = Visibility.Collapsed;
             LoginCommand = new AsyncCommand(LoginAction, CanLogin);
             User.PropertyChanged += (sender, args) => LoginCommand.RaiseCanExecuteChanged();
             CreateAccountCommand = new Command(CreateAccountAction);
@@ -40,6 +43,9 @@ namespace filmio.ViewModel {
 
         private async Task LoginAction() {
 
+            isFormVis = Visibility.Collapsed;
+            isWorkiing = Visibility.Visible;
+
             FirebaseAuthHelper authHelper = new(_config);
 
             var newUser = await authHelper.SignInUser(User.Email,
@@ -51,6 +57,17 @@ namespace filmio.ViewModel {
                 var location = await GeoData.GetGeoData();
                 await fireStore.UpdateUserAsync(newUser.User.Uid, location!);
 
+                MainFrame mainFrame = new();
+                MainFrameViewModel frameViewModel = new(mainFrame.ContentFrame);
+                mainFrame.DataContext = frameViewModel;
+                mainFrame.Show();
+
+                WindowsHelper.CloseWindow(Application.Current.MainWindow);
+
+
+            } else {
+                isFormVis = Visibility.Visible;
+                isWorkiing = Visibility.Collapsed;
             }
         }
 

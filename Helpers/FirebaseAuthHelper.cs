@@ -1,7 +1,4 @@
-﻿using filmio.View.Dialogs;
-using filmio.ViewModel;
-
-namespace filmio.Helpers {
+﻿namespace filmio.Helpers {
     public class FirebaseAuthHelper {
 
         private readonly IFirebaseAuthClient _firebaseAuthClient;
@@ -14,7 +11,7 @@ namespace filmio.Helpers {
             try {
                 return await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, name);
             } catch (FirebaseAuthException ex) {
-                await HandleAuthExceptionAsync(ex);
+                HandleAuthException(ex);
                 return null;
             }
         }
@@ -23,33 +20,33 @@ namespace filmio.Helpers {
             try {
                 return await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
             } catch (FirebaseAuthException ex) {
-                await HandleAuthExceptionAsync(ex);
+                HandleAuthException(ex);
                 return null;
             }
         }
 
-        private static async Task ShowErrorAsync(string Message) {
+        private static void ShowError(string Message) {
 
             var dlg = new ErrorDialog();
             var vm = new ErrorDialogViewModel(Message, dlg);
             dlg.DataContext = vm;
 
-            await dlg.ShowAsync();
+            dlg.ShowAsync();
         }
 
-        private static async Task HandleAuthExceptionAsync(FirebaseAuthException ex) {
+        private static void HandleAuthException(FirebaseAuthException ex) {
             switch (ex.Reason) {
                 case AuthErrorReason.InvalidEmailAddress:
-                    await ShowErrorAsync("Invalid email");
+                    ShowError("Invalid email");
                     break;
                 case AuthErrorReason.WeakPassword:
-                    await ShowErrorAsync("Weak password");
+                    ShowError("Weak password: it must be at least 6 characters");
                     break;
                 case AuthErrorReason.EmailExists:
-                    await ShowErrorAsync("Email exist");
+                    ShowError("Email exist");
                     break;
                 case AuthErrorReason.WrongPassword:
-                    await ShowErrorAsync("Wrong Password");
+                    ShowError("Wrong Password");
                     break;
                 default:
                     break;

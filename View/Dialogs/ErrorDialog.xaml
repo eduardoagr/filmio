@@ -6,13 +6,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     IsShadowEnabled="False"
+    Title="Error"
     mc:Ignorable="d">
 
     <StackPanel Margin="10">
 
         <TextBlock
-            HorizontalAlignment="Center"
-            FontSize="24"
+            VerticalAlignment="Center"
             FontStyle="Oblique"
             Text="{Binding _FirebaseError}" />
 

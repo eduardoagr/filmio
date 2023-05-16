@@ -1,8 +1,4 @@
-﻿using filmio.Services;
-
-using User = filmio.Model.User;
-
-namespace filmio.ViewModel {
+﻿namespace filmio.ViewModel.Dialogs {
     public class RegsterDialogViewModel : ObservableObject {
 
         private readonly FirebaseAuthConfig _config;
@@ -51,13 +47,17 @@ namespace filmio.ViewModel {
 
             FirebaseAuthHelper authHelper = new(_config);
 
-            var newUser = await authHelper.SignUpNewUser(User.Name!, User.Email, User.Password);
+            var newUser = await authHelper.SignUpNewUser(User.Name!,
+                User.Email, User.Password);
 
             if (newUser != null) {
                 FireStoreHelper fireStore = new("filmio-4fa42");
                 var location = await GeoData.GetGeoData();
                 await fireStore.AddUserAsync(newUser.User.Uid, User.Name!,
                     User.Email, location!);
+
+
+
             } else {
                 IsFieldsVisible = Visibility.Visible;
                 isWorking = Visibility.Collapsed;

@@ -7,15 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:vm="clr-namespace:filmio.ViewModel"
-    Title="MainWindow"
+    Title="Login"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance Type=vm:LoginViewModel}"
     ui:WindowHelper.UseModernWindowStyle="True"
+    ResizeMode="NoResize"
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel
+        <StackPanel Visibility="{Binding isFormVis}"
             Margin="100,0,100,0"
             VerticalAlignment="Center">
             <TextBox
@@ -44,7 +45,12 @@
                         MouseAction="LeftClick" />
                 </TextBlock.InputBindings>
             </TextBlock>
-
         </StackPanel>
+
+        <ui:ProgressRing
+            Visibility="{Binding isWorkiing}"
+            Width="60"
+            Height="60"
+            IsActive="True" />
     </Grid>
 </Window>

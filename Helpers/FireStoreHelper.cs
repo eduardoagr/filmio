@@ -9,7 +9,8 @@ namespace filmio.Helpers {
 
         public FireStoreHelper(string projectId = "filmio-4fa42") {
 
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "serviceAccountKey.json");
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
+                "serviceAccountKey.json");
 
             _db = FirestoreDb.Create(projectId);
         }
