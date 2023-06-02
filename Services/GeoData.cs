@@ -1,7 +1,4 @@
-﻿
-using filmio.Model;
-
-namespace filmio.Services {
+﻿namespace filmio.Services {
     public class GeoData {
 
         public static async Task<Address?> GetGeoData() {

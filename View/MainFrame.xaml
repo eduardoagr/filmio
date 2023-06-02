@@ -2,14 +2,11 @@
     x:Class="filmio.View.MainFrame"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:local="clr-namespace:filmio.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Width="800"
-    Height="450"
+    Height="800"
     ui:WindowHelper.UseModernWindowStyle="True"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -17,18 +14,19 @@
 
 
     <!--  Frame content  -->
-    <ui:Frame x:Name="ContentFrame"
-              Grid.Row="1"
-              NavigationUIVisibility="Hidden">
-        <ui:Frame.ContentTransitions>
-            <ui:TransitionCollection>
-                <ui:NavigationThemeTransition>
-                    <ui:SlideNavigationTransitionInfo Effect="FromLeft" />
-                </ui:NavigationThemeTransition>
-            </ui:TransitionCollection>
-        </ui:Frame.ContentTransitions>
-    </ui:Frame>
-
-
+    <ScrollViewer>
+        <ui:Frame
+            x:Name="ContentFrame"
+            Grid.Row="1"
+            NavigationUIVisibility="Hidden">
+            <ui:Frame.ContentTransitions>
+                <ui:TransitionCollection>
+                    <ui:NavigationThemeTransition>
+                        <ui:SlideNavigationTransitionInfo Effect="FromRight" />
+                    </ui:NavigationThemeTransition>
+                </ui:TransitionCollection>
+            </ui:Frame.ContentTransitions>
+        </ui:Frame>
+    </ScrollViewer>
 
 </Window>

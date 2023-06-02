@@ -4,38 +4,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:filmio.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:filmio.ViewModel.Pages"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
     Title="MainWindow"
-    Width="400"
-    Height="450"
+    d:DataContext="{d:DesignInstance Type=pages:MainPageViewModel}"
     mc:Ignorable="d">
 
-    <StackPanel>
-        <Controls:Tile
-            Title="Create a meeting"
-            Margin="20"
-            Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-            Background="#a7c957"
-            Command="{Binding CreateMeetingCommand}"
-            Foreground="White">
-            <Image
-                Width="60"
-                Height="60"
-                Source="/img/meeting.png" />
-        </Controls:Tile>
-
-        <Controls:Tile
-            Title="Join a meeting"
-            Margin="60"
-            Controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-            Background="#bc4749"
-            Foreground="White">
-            <Image
-                Width="60"
-                Height="60"
-                Source="/img/video-conference.png" />
-        </Controls:Tile>
-
-    </StackPanel>
+    <ui:GridView
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        ItemsSource="{Binding customTiles}">
+        <ui:GridView.ItemTemplate>
+            <DataTemplate>
+                <Controls:Tile
+                    Title="{Binding Title}"
+                    Background="{Binding BackgroundColor}"
+                    Command="{Binding Command}"
+                    Foreground="White">
+                    <Image
+                        Width="80"
+                        Height="80"
+                        Source="{Binding Image}" />
+                </Controls:Tile>
+            </DataTemplate>
+        </ui:GridView.ItemTemplate>
+    </ui:GridView>
 </Page>

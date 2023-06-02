@@ -1,6 +1,6 @@
 ﻿namespace filmio.ViewModel.Dialogs {
     public class RegsterDialogViewModel : ObservableObject {
-
+        private const string msg = "Registration successful";
         private readonly FirebaseAuthConfig _config;
 
         public User User { get; set; }
@@ -51,12 +51,13 @@
                 User.Email, User.Password);
 
             if (newUser != null) {
-                FireStoreHelper fireStore = new("filmio-4fa42");
+                FireStoreHelper fireStore = new();
                 var location = await GeoData.GetGeoData();
                 await fireStore.AddUserAsync(newUser.User.Uid, User.Name!,
                     User.Email, location!);
-
-
+                GenericDialog dialog = new();
+                dialog.DataContext = new GenericDialogViewModel(msg, 2, dialog);
+                await dialog.ShowAsync();
 
             } else {
                 IsFieldsVisible = Visibility.Visible;

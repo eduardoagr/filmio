@@ -1,0 +1,42 @@
+﻿<Window
+    x:Class="filmio.View.DailyCoWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:viewmodel="clr-namespace:filmio.ViewModel"
+    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+    Width="800"
+    Height="800"
+    d:DataContext="{d:DesignInstance Type=viewmodel:DailyCoViewModel}"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    mc:Ignorable="d">
+
+    <Grid Margin="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <ui:ListView
+                ItemsSource="{Binding PeopleInvited}"
+                Visibility="{Binding isTeacher}">
+                <ui:ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,20,0,0">
+                            <TextBlock Text="{Binding Name, StringFormat='Name: {0}'}" />
+                            <TextBlock Text="{Binding Email, StringFormat='Email {0}'}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ui:ListView.ItemTemplate>
+            </ui:ListView>
+
+            <wv2:WebView2
+                Grid.Column="2"
+                Margin="20,0,0,0"
+                Source="{Binding MeetingUrl}" />
+        </Grid>
+    </Grid>
+</Window>

@@ -27,8 +27,8 @@
 
         private static void ShowError(string Message) {
 
-            var dlg = new ErrorDialog();
-            var vm = new ErrorDialogViewModel(Message, dlg);
+            var dlg = new GenericDialog();
+            var vm = new GenericDialogViewModel(Message, 0, dlg);
             dlg.DataContext = vm;
 
             dlg.ShowAsync();

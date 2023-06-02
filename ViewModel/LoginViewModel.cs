@@ -1,7 +1,4 @@
-﻿
-
-
-namespace filmio.ViewModel {
+﻿namespace filmio.ViewModel {
 
     public class LoginViewModel : ObservableObject {
 
@@ -58,7 +55,8 @@ namespace filmio.ViewModel {
                 await fireStore.UpdateUserAsync(newUser.User.Uid, location!);
 
                 MainFrame mainFrame = new();
-                MainFrameViewModel frameViewModel = new(mainFrame.ContentFrame);
+                MainFrameViewModel frameViewModel = new(mainFrame.ContentFrame,
+                    newUser.User.Uid);
                 mainFrame.DataContext = frameViewModel;
                 mainFrame.Show();
 

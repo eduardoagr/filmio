@@ -1,6 +1,4 @@
-﻿using Page = System.Windows.Controls.Page;
-
-namespace filmio.View {
+﻿namespace filmio.View {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
