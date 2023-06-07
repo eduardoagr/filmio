@@ -1,17 +1,17 @@
 ﻿namespace filmio.ViewModel.Dialogs {
     class ExamDetailDialogViewModel : ObservableObject {
 
-        public ExamDetail examDetail { get; set; }
+        public ExamDetail ExamDetail { get; set; }
 
         public Command ScheduleExamCommand { get; set; }
 
-        public ObservableCollection<string> Subjects { get; set; }
+        public ObservableCollection<string>? Subjects { get; set; }
 
         public ExamDetailDialogViewModel() {
 
-            examDetail = new ExamDetail();
+            ExamDetail = new ExamDetail();
             ScheduleExamCommand = new Command(ScheduleExamActuion, canSchedule);
-            examDetail.PropertyChanged += (s, a) => ScheduleExamCommand.RaiseCanExecuteChanged();
+            ExamDetail.PropertyChanged += (s, a) => ScheduleExamCommand.RaiseCanExecuteChanged();
             GrabData();
         }
 
@@ -24,16 +24,16 @@
         }
 
         private bool canSchedule(object arg) {
-            return !string.IsNullOrEmpty(examDetail.Date)
-                && !string.IsNullOrEmpty(examDetail.Subject)
-                && !string.IsNullOrEmpty(examDetail.Title);
+            return !string.IsNullOrEmpty(ExamDetail.Date)
+                && !string.IsNullOrEmpty(ExamDetail.Subject)
+                && !string.IsNullOrEmpty(ExamDetail.Title);
         }
 
         private void ScheduleExamActuion(object obj) {
 
-            examDetail.Title = examDetail.Title;
-            examDetail.Date = examDetail.Date?.Split(" ")[0];
-            examDetail.Subject = examDetail.Subject;
+            ExamDetail.Title = ExamDetail.Title;
+            ExamDetail.Date = ExamDetail.Date?.Split(" ")[0];
+            ExamDetail.Subject = ExamDetail.Subject;
         }
 
 

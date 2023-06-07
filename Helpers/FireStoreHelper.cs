@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace filmio.Helpers {
-    public class FireStoreHelper {
+namespace filmio.Helpers
+{
+    public class FireStoreHelper
+    {
 
         private readonly FirestoreDb _db;
 
-        public FireStoreHelper(string projectId = "filmio-4fa42") {
+        public FireStoreHelper(string projectId = "filmio-4fa42")
+        {
 
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",
                 "serviceAccountKey.json");
@@ -13,7 +16,8 @@ namespace filmio.Helpers {
             _db = FirestoreDb.Create(projectId);
         }
 
-        public async Task AddUserAsync(string userId, string name, string email, Address address) {
+        public async Task AddUserAsync(string userId, string name, string email, Address address)
+        {
             CollectionReference usersRef = _db.Collection("Users");
             DocumentReference newUserRef = usersRef.Document(userId);
 
@@ -39,7 +43,8 @@ namespace filmio.Helpers {
             await newUserRef.SetAsync(user);
         }
 
-        public async Task UpdateUserAsync(string userId, Address address) {
+        public async Task UpdateUserAsync(string userId, Address address)
+        {
             var userRef = _db.Collection("Users").Document(userId);
 
             var updateData = new Dictionary<string, object>() {
@@ -60,7 +65,8 @@ namespace filmio.Helpers {
             await userRef.UpdateAsync(updateData);
         }
 
-        public async Task<ObservableCollection<User>> GetAllUsersExceptCurrentUserAsync(string currentUserId) {
+        public async Task<ObservableCollection<User>> GetAllUsersExceptCurrentUserAsync(string currentUserId)
+        {
             CollectionReference usersRef = _db.Collection("Users");
 
             // Query all users except the current user
@@ -68,15 +74,18 @@ namespace filmio.Helpers {
 
             ObservableCollection<User> users = new();
 
-            foreach (DocumentSnapshot document in snapshot.Documents) {
-                User user = new() {
+            foreach (DocumentSnapshot document in snapshot.Documents)
+            {
+                User user = new()
+                {
                     Id = document.GetValue<string>("Id"),
                     Name = document.GetValue<string>("Name"),
                     Email = document.GetValue<string>("Email")
                 };
 
                 Dictionary<string, object> addressData = document.GetValue<Dictionary<string, object>>("Address");
-                Address address = new() {
+                Address address = new()
+                {
                     building = addressData["Building"]?.ToString(),
                     road = addressData["Road"]?.ToString(),
                     neighbourhood = addressData["Neighbourhood"]?.ToString(),
@@ -98,7 +107,8 @@ namespace filmio.Helpers {
             return users;
         }
 
-        public async Task<(string, string)> CreateRoomInFirestoreAsync(ObservableCollection<User> usersInvited) {
+        public async Task<(string, string)> CreateRoomInFirestoreAsync(ObservableCollection<User> usersInvited)
+        {
             // Generate the room in Daily.co or retrieve the response from Daily.co API
             var dailyCoResponse = new DailyCoServices();
             var room = await dailyCoResponse.CreateRoomAsync();
@@ -122,19 +132,24 @@ namespace filmio.Helpers {
             return (room.url, room.id);
         }
 
-        public async Task<ObservableCollection<User>> GetUsersInvitedFromFirestoreAsync(string roomId) {
+        public async Task<ObservableCollection<User>> GetUsersInvitedFromFirestoreAsync(string roomId)
+        {
             DocumentReference roomRef = _db.Collection("rooms").Document(roomId);
 
             DocumentSnapshot snapshot = await roomRef.GetSnapshotAsync();
 
-            if (snapshot.Exists) {
+            if (snapshot.Exists)
+            {
                 Dictionary<string, object> roomData = snapshot.ToDictionary();
 
-                if (roomData.TryGetValue("usersInvited", out object usersInvitedObj) && usersInvitedObj is List<object> usersInvitedData) {
+                if (roomData.TryGetValue("usersInvited", out object usersInvitedObj) && usersInvitedObj is List<object> usersInvitedData)
+                {
                     var usersInvited = new ObservableCollection<User>();
 
-                    foreach (var userData in usersInvitedData) {
-                        if (userData is Dictionary<string, object> userDataDict) {
+                    foreach (var userData in usersInvitedData)
+                    {
+                        if (userData is Dictionary<string, object> userDataDict)
+                        {
                             string email = userDataDict.TryGetValue("email", out object emailObj) ? emailObj.ToString() : "";
                             string name = userDataDict.TryGetValue("name", out object nameObj) ? nameObj.ToString() : "";
                             usersInvited.Add(new User { Email = email, Name = name });

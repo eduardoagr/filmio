@@ -6,6 +6,7 @@
         private string? name;
         private string? password;
         private Address? address;
+        private SolidColorBrush? isInvited;
 
         public Address? Address {
             get => address!;
@@ -41,6 +42,14 @@
             get => password!;
             set {
                 password = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SolidColorBrush IsInvited {
+            get => isInvited!;
+            set {
+                isInvited = value;
                 OnPropertyChanged();
             }
         }

@@ -11,8 +11,8 @@
   <ItemGroup>
     <None Remove="Img\group.png" />
     <None Remove="Img\icons8-classroom-100.png" />
+    <None Remove="Img\icons8-conference-100.png" />
     <None Remove="Img\icons8-google-classroom-48.png" />
-    <None Remove="Img\icons8-meeting-100.png" />
     <None Remove="Img\icons8-report-card-100.png" />
     <None Remove="Img\icons8-schedule-100.png" />
     <None Remove="Img\icons8-upload-to-the-cloud-100.png" />
@@ -26,10 +26,10 @@
     <Content Include="Img\icons8-classroom-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Img\icons8-google-classroom-48.png">
+    <Content Include="Img\icons8-conference-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Img\icons8-meeting-100.png">
+    <Content Include="Img\icons8-google-classroom-48.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\icons8-report-card-100.png">
@@ -67,7 +67,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="serviceAccountKey.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

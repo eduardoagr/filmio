@@ -1,4 +1,5 @@
-﻿namespace filmio.ViewModel.Pages {
+﻿namespace filmio.ViewModel.Pages
+{
     public class ManageUsersPageViewModel : ObservableObject {
 
         private readonly string? currentId;
@@ -26,7 +27,7 @@
         }
 
         private void GoBackAction(object obj) {
-            if (frame.CanGoBack) {
+            if (frame != null && frame.CanGoBack) {
                 frame.GoBack();
             }
 

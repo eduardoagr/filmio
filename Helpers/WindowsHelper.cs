@@ -1,7 +1,10 @@
-﻿namespace filmio.Helpers {
-    public class WindowsHelper {
+﻿namespace filmio.Helpers
+{
+    public class WindowsHelper
+    {
 
-        public static void CloseWindow(Window window) {
+        public static void CloseWindow(Window window)
+        {
             window?.Close();
         }
     }

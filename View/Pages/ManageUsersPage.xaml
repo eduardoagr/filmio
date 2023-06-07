@@ -10,6 +10,7 @@
     xmlns:pages="clr-namespace:filmio.ViewModel.Pages"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Title="ManageUsers"
+    xmlns:converters="clr-namespace:filmio.Converters"
     d:DataContext="{d:DesignInstance Type=pages:ManageUsersPageViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -17,7 +18,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <local:FirstCharacterConverter x:Key="FirstCharacterConverter" />
+            <converters:FirstCharacterConverter x:Key="FirstCharacterConverter" />
         </ResourceDictionary>
     </Page.Resources>
 

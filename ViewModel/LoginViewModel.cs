@@ -62,7 +62,6 @@
 
                 WindowsHelper.CloseWindow(Application.Current.MainWindow);
 
-
             } else {
                 isFormVis = Visibility.Visible;
                 isWorkiing = Visibility.Collapsed;

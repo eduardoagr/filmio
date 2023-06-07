@@ -5,40 +5,42 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dialogs="clr-namespace:filmio.ViewModel.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Title="ExamDetail"
     Width="400"
     Height="550"
+    xmlns:date="clr-namespace:filmio.Components"
     d:DataContext="{d:DesignInstance Type=dialogs:ExamDetailDialogViewModel}"
     ui:WindowHelper.UseModernWindowStyle="True"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
-    <StackPanel Margin="10,10,0,0">
-        <TextBox ui:ControlHelper.PlaceholderText="Title" 
-                 Text="{Binding examDetail.Title, UpdateSourceTrigger=PropertyChanged}"/>
+    <StackPanel Margin="10,10,10,0">
+        <TextBox
+            ui:ControlHelper.PlaceholderText="Title"
+            Text="{Binding ExamDetail.Title, UpdateSourceTrigger=PropertyChanged}" />
 
         <ComboBox
             Margin="0,10,0,0"
-            ItemsSource="{Binding Subjects }"
-            SelectedItem="{Binding examDetail.Subject, UpdateSourceTrigger=PropertyChanged}"
-            ui:ControlHelper.PlaceholderText="Subject" />
+            ui:ControlHelper.PlaceholderText="Subject"
+            ItemsSource="{Binding Subjects}"
+            SelectedItem="{Binding ExamDetail.Subject, UpdateSourceTrigger=PropertyChanged}" />
 
         <DatePicker
             Margin="0,10,0,0"
-            ui:ControlHelper.PlaceholderText=""
-            DisplayDateStart="{x:Static sys:DateTime.Now}"
+            date:DatePickerExtensions.DisallowPastDates="True"
+            ui:DatePickerHelper.IsEnabled="True"
+            ui:ControlHelper.PlaceholderText="Select Date"
             FocusVisualStyle="{x:Null}"
-            SelectedDate="{Binding examDetail.Date, UpdateSourceTrigger=PropertyChanged}"
+            SelectedDate="{Binding ExamDetail.Date, UpdateSourceTrigger=PropertyChanged}"
             Validation.ErrorTemplate="{x:Null}" />
 
         <Button
             Margin="0,10,10,0"
             HorizontalAlignment="Stretch"
+            Command="{Binding ScheduleExamCommand}"
             Content="schedule"
-            Command="{Binding ScheduleExamCommand }"
             FocusVisualStyle="{x:Null}" />
     </StackPanel>
 </Window>

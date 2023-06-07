@@ -1,9 +1,9 @@
 ﻿namespace filmio.ViewModel.Pages {
     public class CreateMeetingPageViewModel : ObservableObject {
 
-        private string? CurrentUserId;
+        private readonly string? CurrentUserId;
 
-        private FireStoreHelper storeHelper;
+        private readonly FireStoreHelper storeHelper;
 
         public Frame Frame { get; set; }
 
@@ -13,7 +13,9 @@
 
         public User? SelectedUser { get; set; }
 
-        public ObservableCollection<User> PeopleInMeeting { get; set; }
+        public ObservableCollection<User> InviteUsersOC { get; set; }
+
+        public ObservableCollection<User> InvitedUsersOC { get; set; }
 
         public ObservableCollection<string>? Roles { get; set; }
 
@@ -35,7 +37,9 @@
 
             Users = new ObservableCollection<User>();
 
-            PeopleInMeeting = new ObservableCollection<User>();
+            InviteUsersOC = new ObservableCollection<User>();
+
+            InvitedUsersOC = new ObservableCollection<User>();
 
             CurrentUserId = id;
 
@@ -49,7 +53,7 @@
 
             RemoveCommand = new Command<User>(RemoveAction);
 
-            FillRoles();
+            Roles = Services.Roles.GetRoles();
 
             GetUsers(CurrentUserId);
         }
@@ -60,8 +64,9 @@
                 var message = $"Do you want to remove: {SelectedUser!.Email}";
                 GenericDialog dialog = new();
                 var dialogViewModel = new GenericDialogViewModel(message, 1,
-                    dialog, this);
-                dialogViewModel.SelectedUser = SelectedUser;
+                    dialog, this) {
+                    SelectedUser = SelectedUser
+                };
                 dialog.DataContext = dialogViewModel;
                 dialog.ShowAsync();
             }
@@ -70,9 +75,10 @@
 
         private void InviteAction(object obj) {
             var user = obj as User;
-            if (!PeopleInMeeting.Contains(user!)) {
-                PeopleInMeeting.Add(user!);
+            if (!InvitedUsersOC.Contains(user!)) {
+                InvitedUsersOC.Add(user!);
             }
+
         }
 
         private async Task StartMeetingAtionAsync() {
@@ -86,7 +92,7 @@
 
                 FireStoreHelper fireStore = new();
 
-                var obj = await fireStore.CreateRoomInFirestoreAsync(PeopleInMeeting);
+                var obj = await fireStore.CreateRoomInFirestoreAsync(InvitedUsersOC);
 
                 DailyCoWindow coWindow = new() {
                     DataContext = new DailyCoViewModel(obj.Item2, SelectedItem!, obj.Item1!)
@@ -98,17 +104,15 @@
             }
         }
 
-        private void FillRoles() {
-            Roles?.Add("Teacher");
-            Roles?.Add("Student");
-        }
 
         private async void GetUsers(string currentUserId) {
             Users = await storeHelper.GetAllUsersExceptCurrentUserAsync(currentUserId);
         }
 
         private void GoBackAction(object obj) {
-            Frame.GoBack();
+            if (Frame != null && Frame.CanGoBack) {
+                Frame.GoBack();
+            }
         }
     }
 }

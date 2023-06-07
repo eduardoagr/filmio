@@ -92,7 +92,19 @@
                     BackgroundColor = new SolidColorBrush(Colors.DarkRed),
                     Image = $"{imagesLocation}icons8-report-card-100.png"
                 },
+                new CustomTile {
+                    Title = "Create Meeting",
+                    Command = CreateMeetingCommand!,
+                    BackgroundColor = new SolidColorBrush(Colors.DarkViolet),
+                    Image = $"{imagesLocation}icons8-video-conference-100.png"
+                },
+                new CustomTile {
+                    Title = "Join Meeting",
+                    Command = CreateMeetingCommand!,
+                    BackgroundColor = new SolidColorBrush(Colors.DeepSkyBlue),
+                    Image = $"{imagesLocation}icons8-conference-100.png"
+                }
             };
         }
-    }
+    };
 }

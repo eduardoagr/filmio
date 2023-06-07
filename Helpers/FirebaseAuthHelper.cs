@@ -1,31 +1,43 @@
-﻿namespace filmio.Helpers {
-    public class FirebaseAuthHelper {
+﻿namespace filmio.Helpers
+{
+    public class FirebaseAuthHelper
+    {
 
         private readonly IFirebaseAuthClient _firebaseAuthClient;
 
-        public FirebaseAuthHelper(FirebaseAuthConfig firebaseAuthConfig) {
+        public FirebaseAuthHelper(FirebaseAuthConfig firebaseAuthConfig)
+        {
             _firebaseAuthClient = new FirebaseAuthClient(firebaseAuthConfig);
         }
 
-        public async Task<UserCredential?> SignUpNewUser(string name, string email, string password) {
-            try {
+        public async Task<UserCredential?> SignUpNewUser(string name, string email, string password)
+        {
+            try
+            {
                 return await _firebaseAuthClient.CreateUserWithEmailAndPasswordAsync(email, password, name);
-            } catch (FirebaseAuthException ex) {
+            }
+            catch (FirebaseAuthException ex)
+            {
                 HandleAuthException(ex);
                 return null;
             }
         }
 
-        public async Task<UserCredential?> SignInUser(string email, string password) {
-            try {
+        public async Task<UserCredential?> SignInUser(string email, string password)
+        {
+            try
+            {
                 return await _firebaseAuthClient.SignInWithEmailAndPasswordAsync(email, password);
-            } catch (FirebaseAuthException ex) {
+            }
+            catch (FirebaseAuthException ex)
+            {
                 HandleAuthException(ex);
                 return null;
             }
         }
 
-        private static void ShowError(string Message) {
+        private static void ShowError(string Message)
+        {
 
             var dlg = new GenericDialog();
             var vm = new GenericDialogViewModel(Message, 0, dlg);
@@ -34,8 +46,10 @@
             dlg.ShowAsync();
         }
 
-        private static void HandleAuthException(FirebaseAuthException ex) {
-            switch (ex.Reason) {
+        private static void HandleAuthException(FirebaseAuthException ex)
+        {
+            switch (ex.Reason)
+            {
                 case AuthErrorReason.InvalidEmailAddress:
                     ShowError("Invalid email");
                     break;

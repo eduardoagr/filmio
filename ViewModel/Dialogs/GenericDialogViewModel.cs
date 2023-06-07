@@ -1,13 +1,10 @@
 ﻿using filmio.ViewModel.Pages;
 
-namespace filmio.ViewModel.Dialogs
-{
+namespace filmio.ViewModel.Dialogs {
 
     public class GenericDialogViewModel : ObservableObject {
 
         private GenericDialog? dialog;
-
-        private readonly ObservableCollection<User>? ListOfUsers;
 
         private int Id;
 
@@ -60,7 +57,7 @@ namespace filmio.ViewModel.Dialogs
         }
 
         private void DeleteButtonAction(object obj) {
-            CreateMeetingPageViewModel?.PeopleInMeeting.Remove(SelectedUser!);
+            CreateMeetingPageViewModel?.InvitedUsersOC.Remove(SelectedUser!);
             dialog!.Hide();
         }
 
@@ -68,6 +65,7 @@ namespace filmio.ViewModel.Dialogs
 
             CreateMeetingPageViewModel!.SelectedUser = null;
             dialog?.Hide();
+
         }
 
         private void OkButtonAction(object obj) {

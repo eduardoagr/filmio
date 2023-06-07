@@ -1,4 +1,5 @@
-﻿namespace filmio.ViewModel {
+﻿namespace filmio.ViewModel
+{
     public class DailyCoViewModel : ObservableObject {
 
         public Visibility isTeacher { get; set; }

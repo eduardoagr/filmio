@@ -60,6 +60,9 @@
                 await dialog.ShowAsync();
 
             } else {
+                GenericDialog dialog = new();
+                dialog.DataContext = new GenericDialogViewModel("Error", 0, dialog);
+                await dialog.ShowAsync();
                 IsFieldsVisible = Visibility.Visible;
                 isWorking = Visibility.Collapsed;
             }
